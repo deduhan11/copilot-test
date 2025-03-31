@@ -1,11 +1,12 @@
 import { test as base, APIRequestContext } from '@playwright/test';
-import { Cat, NewCat, ApiResponse, ErrorResponse } from '../types/cat.types';
+import { Cat } from '../types/Cat';
+import { NewCat } from '../types/NewCat';
+import { ApiResponse, ErrorResponse } from '../types/ApiResponse';
 
 export type TestFixtures = {
   createdCatIds: string[];
 };
 
-// Extend the test context with our custom utilities
 export const test = base.extend<TestFixtures>({
   createdCatIds: [async ({}, use) => {
     const ids: string[] = [];
@@ -13,7 +14,6 @@ export const test = base.extend<TestFixtures>({
   }, { scope: 'test' }]
 });
 
-// Setup and teardown hooks
 export const setupTest = () => {
   test.beforeEach(async ({ createdCatIds }) => {
     createdCatIds.length = 0;
@@ -38,41 +38,19 @@ export const setupTest = () => {
   });
 };
 
-// Common constants
 export const API_URL = 'http://localhost:3000/api/v1';
 
-// Helper functions
 export async function createTestCat(
   request: APIRequestContext, 
   cat: NewCat, 
   ids: string[]
 ): Promise<Cat> {
-  try {
-    const response = await request.post(`${API_URL}/cats`, { 
-      data: cat,
-      failOnStatusCode: false 
-    });
+  const response = await request.post(`${API_URL}/cats`, { 
+    data: cat,
+    failOnStatusCode: false 
+  });
     
-    if (!response.ok()) {
-      const error = await response.json() as ErrorResponse;
-      throw new Error(`Failed to create test cat: ${error.data.error}`);
-    }
-
-    const { data } = await response.json() as ApiResponse<Cat>;
-    ids.push(data.id);
-    return data;
-  } catch (error) {
-    throw new Error(`Failed to create test cat: ${error instanceof Error ? error.message : String(error)}`);
-  }
-}
-
-export function getValidCat(name?: string): NewCat {
-  return {
-    name: name || `TestCat_${Date.now()}`,
-    sex: "Female",
-    age: 3,
-    breed: "Test Breed",
-    colour: "White",
-    likes: ["testing", "debugging"]
-  };
+  const { data } = await response.json() as ApiResponse<Cat>;
+  ids.push(data.id);
+  return data;
 }

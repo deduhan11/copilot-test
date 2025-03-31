@@ -1,0 +1,34 @@
+{
+  "validCats": [
+    {
+      "name": "ValidCat1",
+      "sex": "Female",
+      "age": 3,
+      "breed": "Test Breed",
+      "colour": "White",
+      "likes": ["testing", "debugging"]
+    },
+    {
+      "name": "ValidCat2",
+      "sex": "Male",
+      "age": 5,
+      "breed": "Mixed",
+      "colour": "Black",
+      "likes": ["sleeping", "eating"]
+    }
+  ],
+  "invalidCats": {
+    "negativeAge": {
+      "name": "InvalidAge",
+      "sex": "Male",
+      "age": -1,
+      "breed": "Test",
+      "colour": "Brown",
+      "likes": ["testing"]
+    },
+    "missingFields": {
+      "name": "MissingFields",
+      "age": 1
+    }
+  }
+}

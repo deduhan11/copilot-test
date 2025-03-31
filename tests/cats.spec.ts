@@ -1,12 +1,8 @@
 import { expect } from '@playwright/test';
-import { Cat, NewCat, ApiResponse, ErrorResponse } from './types/cat.types';
-import { 
-  test, 
-  API_URL, 
-  setupTest, 
-  createTestCat, 
-  getValidCat 
-} from './utils/test.utils';
+import { Cat } from './types/Cat';
+import { ApiResponse, ErrorResponse } from './types/ApiResponse';
+import { test, API_URL, setupTest, createTestCat } from './utils/test.utils';
+import { CatFactory } from './factories/catFactory';
 
 setupTest();
 
@@ -25,22 +21,18 @@ test.describe('Cats API', () => {
       const body = await response.json() as ApiResponse<Cat[]>;
       const cat = body.data[0];
       
-      // Type checking will ensure all properties exist
-      const expectedCat: Cat = cat;
       expect(Array.isArray(cat.likes)).toBeTruthy();
     });
   });
 
   test.describe('GET /cats/:id', () => {
-    test('should get cat by valid id', async ({ request }) => {
-      const allCats = await request.get(`${API_URL}/cats`);
-      const { data: cats } = await allCats.json() as ApiResponse<Cat[]>;
-      const testCatId = cats[0].id;
+    test('should get cat by valid id', async ({ request, createdCatIds }) => {
+      const testCat = await createTestCat(request, CatFactory.getValidCat(), createdCatIds);
 
-      const response = await request.get(`${API_URL}/cats/${testCatId}`);
+      const response = await request.get(`${API_URL}/cats/${testCat.id}`);
       expect(response.ok()).toBeTruthy();
       const body = await response.json() as ApiResponse<Cat>;
-      expect(body.data.id).toBe(testCatId);
+      expect(body.data.id).toBe(testCat.id);
     });
 
     test('should return 404 for non-existent cat id', async ({ request }) => {
@@ -51,9 +43,10 @@ test.describe('Cats API', () => {
 
   test.describe('POST /cats', () => {
     test('should create new cat with valid data', async ({ request, createdCatIds }) => {
-      const validCat = getValidCat();
+      const validCat = CatFactory.getValidCat();
       const response = await request.post(`${API_URL}/cats`, {
-        data: validCat
+        data: validCat,
+        failOnStatusCode: false
       });
       expect(response.status()).toBe(201);
       const body = await response.json() as ApiResponse<Cat>;
@@ -65,10 +58,7 @@ test.describe('Cats API', () => {
     });
 
     test('should reject invalid age', async ({ request }) => {
-      const invalidCat: Partial<NewCat> = {
-        ...getValidCat(),
-        age: -1
-      };
+      const invalidCat = CatFactory.getInvalidCatWithNegativeAge();
       const response = await request.post(`${API_URL}/cats`, {
         data: invalidCat,
         failOnStatusCode: false
@@ -77,26 +67,23 @@ test.describe('Cats API', () => {
     });
 
     test('should reject duplicate cat name', async ({ request, createdCatIds }) => {
-      try {
-        const validCat = getValidCat();
-        await createTestCat(request, validCat, createdCatIds);
-        const response = await request.post(`${API_URL}/cats`, { 
-          data: validCat,
-          failOnStatusCode: false 
-        });
-        expect(response.status()).toBe(400);
-        const error = await response.json() as ErrorResponse;
-        expect(error.data.error).toContain('already exists');
-      } catch (error) {
-        console.error('Test failed:', error);
-        throw error;
-      }
+      const validCat = CatFactory.getValidCat();
+      await createTestCat(request, validCat, createdCatIds);
+      
+      const response = await request.post(`${API_URL}/cats`, { 
+        data: validCat,
+        failOnStatusCode: false 
+      });
+      expect(response.status()).toBe(400);
+      const error = await response.json() as ErrorResponse;
+      expect(error.data.error).toContain('already exists');
     });
 
     test('should reject missing required fields', async ({ request }) => {
-      const invalidCat = { name: "TestCat" };
+      const invalidCat = CatFactory.getMissingFieldsCat();
       const response = await request.post(`${API_URL}/cats`, {
-        data: invalidCat
+        data: invalidCat,
+        failOnStatusCode: false
       });
       expect(response.status()).toBe(400);
     });
@@ -104,7 +91,7 @@ test.describe('Cats API', () => {
 
   test.describe('PATCH /cats/:id', () => {
     test('should update existing cat', async ({ request, createdCatIds }) => {
-      const newCat = getValidCat();
+      const newCat = CatFactory.getValidCat();
       const createdCat = await createTestCat(request, newCat, createdCatIds);
       
       const updates = {
@@ -120,15 +107,13 @@ test.describe('Cats API', () => {
       const { data: updatedCat } = await response.json() as ApiResponse<Cat>;
       expect(updatedCat.name).toBe(updates.name);
       expect(updatedCat.age).toBe(updates.age);
-      // Verify unchanged fields
       expect(updatedCat.sex).toBe(newCat.sex);
       expect(updatedCat.breed).toBe(newCat.breed);
       expect(updatedCat.likes).toEqual(newCat.likes);
     });
 
     test('should reject update with existing name', async ({ request, createdCatIds }) => {
-      const cat1 = getValidCat('Cat1');
-      const cat2 = getValidCat('Cat2');
+      const [cat1, cat2] = CatFactory.getPairOfCats();
       
       await createTestCat(request, cat1, createdCatIds);
       const createdCat2 = await createTestCat(request, cat2, createdCatIds);
@@ -145,7 +130,7 @@ test.describe('Cats API', () => {
 
   test.describe('DELETE /cats/:id', () => {
     test('should delete existing cat', async ({ request, createdCatIds }) => {
-      const newCat = getValidCat('ToDelete');
+      const newCat = CatFactory.getValidCat('ToDelete');
       const createdCat = await createTestCat(request, newCat, createdCatIds);
 
       const response = await request.delete(`${API_URL}/cats/${createdCat.id}`);
