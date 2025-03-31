@@ -7,7 +7,11 @@
       "age": 5,
       "breed": "mixed",
       "colour": "brown",
-      "likes": ["chicken", "getting into fights", "hunting mice"],
+      "likes": [
+        "chicken",
+        "getting into fights",
+        "hunting mice"
+      ],
       "createdAt": "7/12/2022, 5:31:49 PM",
       "updatedAt": "7/12/2022, 5:31:49 PM"
     },
@@ -18,7 +22,11 @@
       "age": 2,
       "breed": "Ragdoll",
       "colour": "white and brown",
-      "likes": ["getting brushed", "cat sticks", "chirping at birds"],
+      "likes": [
+        "getting brushed",
+        "cat sticks",
+        "chirping at birds"
+      ],
       "createdAt": "7/12/2022, 5:31:49 PM",
       "updatedAt": "7/12/2022, 5:31:49 PM"
     },
@@ -29,7 +37,11 @@
       "age": 4,
       "breed": "Sphynx",
       "colour": "grey",
-      "likes": ["wearing clothes", "playing with feathers", "sardines"],
+      "likes": [
+        "wearing clothes",
+        "playing with feathers",
+        "sardines"
+      ],
       "createdAt": "7/12/2022, 5:31:49 PM",
       "updatedAt": "7/12/2022, 5:31:49 PM"
     },
@@ -40,7 +52,9 @@
       "age": 1,
       "breed": "Bengal",
       "colour": "orange and brown",
-      "likes": ["going on adventures"],
+      "likes": [
+        "going on adventures"
+      ],
       "createdAt": "7/12/2022, 5:31:49 PM",
       "updatedAt": "7/12/2022, 5:31:49 PM"
     },
@@ -50,7 +64,10 @@
       "age": 2,
       "breed": "Mixed",
       "colour": "Black",
-      "likes": ["Dreamies", "Going out at night"],
+      "likes": [
+        "Dreamies",
+        "Going out at night"
+      ],
       "id": "5d5ca551-caf6-4843-9b4d-52074222f208",
       "createdAt": "7/12/2022, 5:31:49 PM",
       "updatedAt": "7/12/2022, 5:31:49 PM"
@@ -61,10 +78,111 @@
       "age": 2,
       "breed": "Bengal",
       "colour": "Brown",
-      "likes": ["chicken", "going outside"],
+      "likes": [
+        "chicken",
+        "going outside"
+      ],
       "id": "be13365e-837d-4973-a173-032c83e3d9f6",
       "createdAt": "7/13/2022, 5:57:06 PM",
       "updatedAt": "7/13/2022, 5:57:06 PM"
+    },
+    {
+      "name": "TestCat_1743420461888",
+      "sex": "Female",
+      "age": -1,
+      "breed": "Test Breed",
+      "colour": "White",
+      "likes": [
+        "testing",
+        "debugging"
+      ],
+      "id": "3349ae7b-ef6f-41ef-84b2-27a4f0b69e86",
+      "createdAt": "3/31/2025, 11:27:42 AM",
+      "updatedAt": "3/31/2025, 11:27:42 AM"
+    },
+    {
+      "name": "TestCat_1743420496657",
+      "sex": "Female",
+      "age": -1,
+      "breed": "Test Breed",
+      "colour": "White",
+      "likes": [
+        "testing",
+        "debugging"
+      ],
+      "id": "6f5ec44f-6f77-45b4-93d9-50db92e6d7fd",
+      "createdAt": "3/31/2025, 11:28:16 AM",
+      "updatedAt": "3/31/2025, 11:28:16 AM"
+    },
+    {
+      "name": "TestCat_1743420594647",
+      "sex": "Female",
+      "age": -1,
+      "breed": "Test Breed",
+      "colour": "White",
+      "likes": [
+        "testing",
+        "debugging"
+      ],
+      "id": "dc82dfea-8ed9-4081-83dd-3787a021580d",
+      "createdAt": "3/31/2025, 11:29:54 AM",
+      "updatedAt": "3/31/2025, 11:29:54 AM"
+    },
+    {
+      "name": "TestCat_1743420595913",
+      "sex": "Female",
+      "age": 3,
+      "breed": "Test Breed",
+      "colour": "White",
+      "likes": [
+        "testing",
+        "debugging"
+      ],
+      "id": "2fc2a7b3-c7b1-4758-b075-597c5b73e54c",
+      "createdAt": "3/31/2025, 11:29:55 AM",
+      "updatedAt": "3/31/2025, 11:29:55 AM"
+    },
+    {
+      "name": "TestCat_1743420967662",
+      "sex": "Female",
+      "age": -1,
+      "breed": "Test Breed",
+      "colour": "White",
+      "likes": [
+        "testing",
+        "debugging"
+      ],
+      "id": "018a24ba-6bfd-4673-a284-6cbc8670302f",
+      "createdAt": "3/31/2025, 11:36:07 AM",
+      "updatedAt": "3/31/2025, 11:36:07 AM"
+    },
+    {
+      "name": "TestCat_1743421907945",
+      "sex": "Female",
+      "age": -1,
+      "breed": "Test Breed",
+      "colour": "White",
+      "likes": [
+        "testing",
+        "debugging"
+      ],
+      "id": "bcd06590-c5a1-457a-9e96-1f995ffb90d1",
+      "createdAt": "3/31/2025, 11:51:47 AM",
+      "updatedAt": "3/31/2025, 11:51:47 AM"
+    },
+    {
+      "name": "TestCat_1743422361218",
+      "sex": "Female",
+      "age": -1,
+      "breed": "Test Breed",
+      "colour": "White",
+      "likes": [
+        "testing",
+        "debugging"
+      ],
+      "id": "cf097786-042c-4738-8da0-e02fb49b27b6",
+      "createdAt": "3/31/2025, 11:59:21 AM",
+      "updatedAt": "3/31/2025, 11:59:21 AM"
     }
   ]
 }
