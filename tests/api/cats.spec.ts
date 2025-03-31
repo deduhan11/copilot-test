@@ -1,8 +1,8 @@
 import { expect } from '@playwright/test';
-import { Cat } from './types/Cat';
-import { ApiResponse, ErrorResponse } from './types/ApiResponse';
-import { test, API_URL, setupTest, createTestCat } from './utils/test.utils';
-import { CatFactory } from './factories/catFactory';
+import { Cat } from '../types/Cat';
+import { ApiResponse, ErrorResponse } from '../types/ApiResponse';
+import { test, API_URL, setupTest, createTestCat } from '../utils/test.utils';
+import { CatFactory } from '../factories/catFactory';
 
 setupTest();
 
